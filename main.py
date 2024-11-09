@@ -1,3 +1,0 @@
-import cairo
-
-print("sam")

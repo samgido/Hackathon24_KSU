@@ -1,0 +1,17 @@
+[tool.poetry]
+package-mode = false
+name = "hackathon24-ksu"
+version = "0.1.0"
+description = "Cade Cameron and Samuel Gido's project for KSU Hackathon 2024"
+authors = ["Samuel Jackson Gido <132026917+samgido@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pycairo = "^1.27.0"
+pygame = "^2.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
