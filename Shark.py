@@ -1,21 +1,24 @@
+from SharkParameters import *
+
 class Shark:
-    def __init__(self, x_location, y_location, size, speed, detection_radius):
+    def __init__(self, x_location, y_location, parameters):
         #Pos
         self.location = (x_location, y_location)
 
         #Size
-        self.size = size
+        self.size = parameters.size
 
         #Speed
-        self.speed = speed #float
+        self.speed = parameters.speed #float
 
         #Detection
-        self.detectionRadius = detection_radius #Units
+        self.detectionRadius = parameters.detection_radius #Units
 
         #Hunger
         self.hungerLevel = 0.0
-        self.maxHungerLevel = #const
-        self.hungerDecay = #neg const
+        self.maxHungerLevel = parameters.maxHungerLevel
+        self.hungerDecay = parameters.hungerDecayRate
+        self.fishHungerValue = parameters.fishHungerValue
 
     def Move(self, x_update, y_update): #Setter
         self.location[0] = x_update * self.speed
@@ -23,6 +26,6 @@ class Shark:
 
     def UpdateHunger(self, eaten_fish):
         if (eaten_fish):
-            self.hungerLevel -= #const
+            self.hungerLevel -= self.fishHungerValue
         else:
             self.hungerLevel *= self.hungerDecay

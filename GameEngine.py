@@ -50,7 +50,7 @@ class GameEngine:
         x = col * square_size
         y = row * square_size
         
-        context.rectangle(x - 1, y - 1, square_size - 2, square_size - 2)
+        context.rectangle(x - 1, y - 1, square_size - 1, square_size - 1)
         is_fish_here = cells[row][col]
 
         if is_fish_here == True:
