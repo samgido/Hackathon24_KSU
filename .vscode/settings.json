@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./Params"
+        "./Params",
+        "./Engine",
+        "./Animals"
     ]
 }

@@ -1,19 +1,21 @@
-from GameEngineParameters import *
+from RenderingEngineParameters import *
 import pygame
 import cairo
 import random
 
-class GameEngine:
-  def __init__(self, params: GameEngineParameters) -> None:
-    self.parameters = params
+class RenderingEngine:
+  def __init__(self, params: RenderingEngineParameters) -> None:
+    self.windowHeight = params.window_height
+    self.windowWidth = params.window_width
+    self.cellArraySize = params.cell_array_size
 
   def Start(self):
     pygame.init()
 
-    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.parameters.window_width, self.parameters.window_height)
+    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.windowWidth, self.windowHeight)
     context = cairo.Context(surface)
      
-    screen = pygame.display.set_mode((self.parameters.window_height, self.parameters.window_width))
+    screen = pygame.display.set_mode((self.windowHeight, self.windowWidth))
      
     running = True
     
@@ -31,22 +33,22 @@ class GameEngine:
         
       i += 1
       buffer = surface.get_data()
-      image = pygame.image.frombuffer(buffer, (self.parameters.window_height, self.parameters.window_width), "ARGB")
+      image = pygame.image.frombuffer(buffer, (self.windowHeight, self.windowWidth), "ARGB")
       screen.blit(image, (0, 0))
       pygame.display.flip()
 
     pygame.quit()
 
   def DrawCellsToContext(self, cells: list, context):
-    if len(cells) != self.parameters.cell_array_size:
+    if len(cells) != self.cellArraySize:
       return
-    if len(cells[0]) != self.parameters.cell_array_size:
+    if len(cells[0]) != self.cellArraySize:
       return
 
-    square_size = self.parameters.window_width / self.parameters.cell_array_size
+    square_size = self.windowWidth / self.cellArraySize
     
-    for row in range(self.parameters.cell_array_size):
-      for col in range(self.parameters.cell_array_size):
+    for row in range(self.cellArraySize):
+      for col in range(self.cellArraySize):
         x = col * square_size
         y = row * square_size
         
@@ -63,9 +65,9 @@ class GameEngine:
 
   def GetRandomGrid(self):
     final = []
-    for i in range(self.parameters.cell_array_size):
+    for i in range(self.cellArraySize):
       row = []
-      for j in range(self.parameters.cell_array_size):
+      for j in range(self.cellArraySize):
         num = random.randint(0, 1)
         if num == 1:
           row.append(False)

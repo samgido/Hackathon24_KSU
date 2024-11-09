@@ -1,10 +1,7 @@
 from FishParameters import *
 
 class Fish:
-    def __init__(self, x_location, y_location, parameters):
-        #Pos
-        self.location = (x_location, y_location)
-
+    def __init__(self, parameters):
         #Speed
         self.speed = parameters.speed
 
@@ -23,15 +20,13 @@ class Fish:
         #self.speed = 0.0
         #self.size = ?
 
-    # pass in direction of movement, make distance travelled proportional to comfort level
-    # direction is a vector originating from the fish
-    def Move(self, x_component, y_component): 
-        pass
-
-    def UpdateComfort(self, distance_to_fish, distance_to_shark): #Alg
-        if (distance_to_fish > self.minComfort and distance_to_fish < self.maxComfort): 
-            # self.comfortLevel += #func
-            pass
+    def UpdateComfort(self, distance_to_shark, distance_to_fish, ): #Alg
+        if (distance_to_shark < self.maxComfortZone):
+            self.comfortLevel *= .2
+        elif (distance_to_fish < self.minComfort or distance_to_fish > self.maxComfort): 
+            self.comfortLevel *= .9
+        else:
+            self.comfortLevel = 1
 
     def TryBreed(self): #Alg
         if (self.breedLevel == self.maxBreed):

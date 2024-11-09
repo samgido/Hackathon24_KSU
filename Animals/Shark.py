@@ -17,15 +17,11 @@ class Shark:
         #Hunger
         self.hungerLevel = 0.0
         self.maxHungerLevel = parameters.maxHungerLevel
-        self.hungerDecay = parameters.hungerDecayRate
+        self.hungerGrowth = parameters.hungerGrowth
         self.fishHungerValue = parameters.fishHungerValue
-
-    def Move(self, x_update, y_update): #Setter
-        self.location[0] = x_update * self.speed
-        self.location[1] = y_update * self.speed
 
     def UpdateHunger(self, eaten_fish):
         if (eaten_fish):
             self.hungerLevel -= self.fishHungerValue
         else:
-            self.hungerLevel *= self.hungerDecay
+            self.hungerLevel *= self.hungerGrowth
