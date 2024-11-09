@@ -17,15 +17,19 @@ class GameEngine:
      
     running = True
     
-    cells = self.GetRandomGrid()
+    i = 0
     while running:
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           running = False
   
-      # step function will go here
+      screen.fill((0, 0, 0))
+      # Call step function into cells, replace line beneath this
+      if i % 100 == 0:
+        cells = self.GetRandomGrid()
       self.DrawCellsToContext(cells, context)
         
+      i += 1
       buffer = surface.get_data()
       image = pygame.image.frombuffer(buffer, (self.parameters.window_height, self.parameters.window_width), "ARGB")
       screen.blit(image, (0, 0))
@@ -39,14 +43,14 @@ class GameEngine:
     if len(cells[0]) != self.parameters.cell_array_size:
       return
 
-    square_size = self.parameters.window_width // self.parameters.cell_array_size
+    square_size = self.parameters.window_width / self.parameters.cell_array_size
     
     for row in range(self.parameters.cell_array_size):
       for col in range(self.parameters.cell_array_size):
         x = col * square_size
         y = row * square_size
         
-        context.rectangle(x - 1, y - 1, square_size - 1, square_size - 1)
+        context.rectangle(x - 1, y - 1, square_size - 2, square_size - 2)
         is_fish_here = cells[row][col]
 
         if is_fish_here == True:
