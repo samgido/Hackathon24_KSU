@@ -1,19 +1,22 @@
-from FishParameters import *
+from Params.FishParameters import *
+import Position
 
 class Fish:
-    def __init__(self, parameters):
+    def __init__(self, parameters, location: Position):
         #Speed
         self.speed = parameters.speed
+        
+        self.location: Position = location
 
         # Comfort
-        self.comfortLevel = 0.0
-        self.maxComfortLevel = parameters.max_comfort_level
-        self.maxComfortZone = parameters.max_comfort_zone #Units
-        self.minComfortZone = parameters.min_comfort_zone #Units
+        self.comfortLevel = 1.0
+        self.maxComfortLevel = parameters.maxComfortLevel
+        self.maxComfortZone = parameters.maxComfortZone #Units
+        self.minComfortZone = parameters.minComfortZone #Units
 
         #Breeding
         self.breedLevel = 0.0
-        self.maxBreedLevel = parameters.max_breed_level
+        self.maxBreedLevel = parameters.maxBreedLevel
         self.breedLevelIncrement = parameters.breedLevelIncrement
         
         #Impliment Later
@@ -22,14 +25,18 @@ class Fish:
 
     def UpdateComfort(self, distance_to_shark, distance_to_fish, ): #Alg
         if (distance_to_shark < self.maxComfortZone):
-            self.comfortLevel *= .2
-        elif (distance_to_fish < self.minComfort or distance_to_fish > self.maxComfort): 
-            self.comfortLevel *= .9
+            self.comfortLevel = .2
+        elif (distance_to_fish < self.minComfortZone):
+            self.comfortLevel = .9
+        elif (distance_to_fish > self.maxComfortZone): 
+            self.comfortLevel = 1.5
         else:
             self.comfortLevel = 1
 
+        # print("comfort level: " + str(self.comfortLevel))
+
     def TryBreed(self): #Alg
-        if (self.breedLevel == self.maxBreed):
+        if (self.breedLevel == self.maxBreedLevel):
             self.breedLevel = 0
             return True
         else:
